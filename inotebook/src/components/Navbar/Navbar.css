@@ -1,0 +1,6 @@
+.navbar-container {
+    height: 4vh;
+    width: 100%;
+    display: flex;
+    background-color: #121212;
+}
