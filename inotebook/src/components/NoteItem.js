@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import noteContext from '../context/notes/NoteContext';
 const NoteItem = (props) => {
   const context=useContext(noteContext);
-  const {deleteNote}=context;// bring deleteNote from context
+  const {deleteNote,editNote}=context;// bring deleteNote from context
     const {note}=props;
   return (
     
@@ -19,7 +19,7 @@ const NoteItem = (props) => {
     <div className='mx-6'>
       {/* delete function trigger when clicked on icon del */}
     <i className="far fa-trash-alt mx-2" onClick={()=>{deleteNote(note._id)}}></i>
-    <i className="far fa-edit"></i>
+    <i className="far fa-edit" onClick={()=>{editNote(note._id)}}></i>
     </div>
        </div>
     
