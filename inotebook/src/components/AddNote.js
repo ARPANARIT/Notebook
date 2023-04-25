@@ -13,6 +13,7 @@ const AddNote = () => {
     const handleClick=(e)=>{
         e.preventDefault(); //to deny page reload
         addNote(note.title,note.description,note.tag);
+        setNote({title:"",description:"",tag:""})// to clear the fields after submit
     };
     // when something is typed in fields
     const onChange=(e)=>{
@@ -23,21 +24,21 @@ const AddNote = () => {
     <div className='container-sm'>
     <div className='col-md-6'>
       <h1>Add Notes</h1>
-    <form>
+    <form onSubmit={handleClick}>
   <div className="mb-3">
     <label htmlFor="title" className="form-label">Title</label>
-    <input type="text" className="form-control" id="title" name='title' onChange={onChange}/>
+    <input type="text" className="form-control" id="title" name='title'value={note.title} onChange={onChange}/>
     
   </div>
   <div className="mb-3">
     <label htmlFor="description" className="form-label">Description</label>
-    <input type="text" className="form-control" id="description" name="description" onChange={onChange} />
+    <input type="text" className="form-control" id="description" name="description" value={note.description}onChange={onChange} autoComplete='off'/>
   </div>
   <div className="mb-3">
     <label htmlFor="tag" className="form-label">Tag</label>
-    <input type="text" className="form-control" id="tag" name="tag" onChange={onChange}/>
+    <input type="text" className="form-control" id="tag" name="tag" value={note.tag}onChange={onChange} autoComplete='off'/>
   </div>
-  <button type="submit" className="btn btn-success" onClick={handleClick}>Submit</button>
+  <button type="submit" className="btn btn-success" >Add Note</button>
 </form>
 </div>
 </div>

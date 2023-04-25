@@ -2,12 +2,21 @@ import React, { useContext, useEffect } from 'react'
 import noteContext from '../context/notes/NoteContext';
 import NoteItem from './NoteItem';
 import AddNote from './AddNote';
+import { useNavigate } from 'react-router-dom';
+
 const Notes = () => {
     //will use noteContext to read R the context
     const context=useContext(noteContext);
     const{notes,getNote}=context;
+    const navigate=useNavigate();
     useEffect(()=>{
-      getNote()
+      if(localStorage.getItem('token')){
+
+        getNote()
+      }
+      else{
+          navigate('/login')
+      }
     },[])//display the notes from getNotes
   return (
     

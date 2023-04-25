@@ -11,14 +11,14 @@ const NoteState = (props) => {//notestate  component also takes in props, which 
   //Get all Notes from MongoDb, export getNotes and call it in Notes.js file
 
   const getNote = async () => {
-    // we will call api to get the new note
-    //console.log("Adding a note");
+    // we will call api to get the notes from Mongodb
+ 
     //API call 
     const response = await fetch(`${host}/api/notes/fetchallnotes`, {
       method: 'GET',
       headers: {
         'Conetent-type': 'application/json',
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ0MDA2ODNlOTI3MjY2MWFjNjNkNWY0In0sImlhdCI6MTY4MTkxOTY0NX0.Q349Y6_7bgKPlc1AlLfPO7i3zdrHUb8FYAPpO4ipxeA'
+        'auth-token': localStorage.getItem('token')
       },
     });
     const json = await response.json();
@@ -30,35 +30,21 @@ const NoteState = (props) => {//notestate  component also takes in props, which 
 
   // Add a Note function- Create C
   //--------------------------------------------------------------------------------------
-  // const addNote=async(title,description,tag)=>{
-  //     // we will call api to get the new note
-  //     //console.log("Adding a note");
-  //     //API call 
-  //     const response=await fetch(`${host}/api/notes/addnotes`,{
-  //       method:'POST',
-  //       headers:{
-  //         'Conetent-type':'application/json',
-  //         'auth-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ0MDA2ODNlOTI3MjY2MWFjNjNkNWY0In0sImlhdCI6MTY4MTkxOTY0NX0.Q349Y6_7bgKPlc1AlLfPO7i3zdrHUb8FYAPpO4ipxeA'
-  //       },
-  //       body:JSON.stringify({title,description,tag})
-  //     });
-  //     const savedNote = await response.json();
-  //     setNotes(notes.concat(savedNote));
 
-  // addNote by chatgpt
+  // addNote 
   const addNote = async (title, description, tag) => {
     try {
       const response = await fetch(`${host}/api/notes/addnotes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ0MDA2ODNlOTI3MjY2MWFjNjNkNWY0In0sImlhdCI6MTY4MTkxOTY0NX0.Q349Y6_7bgKPlc1AlLfPO7i3zdrHUb8FYAPpO4ipxeA', // add your auth token here
+          "auth-token": localStorage.getItem('token'), // add your auth token here
         },
         body: JSON.stringify({ title, description, tag }),
       });
 
       const data = await response.json();
-
+      setNotes(notes.concat(data))
       console.log("New note added:", data);
       // you can update your state or UI as required here
     } catch (error) {
@@ -67,21 +53,9 @@ const NoteState = (props) => {//notestate  component also takes in props, which 
     }
   };
 
-
-
-  // const note={
-  //     "_id": "6440aff46a69219d816fa8411",
-  //     "user": "64400683e9272661ac63d5f4",
-  //     "title": title,
-  //     "description": description,
-  //     "tag": tag,
-  //     "date": "2023-04-20T03:22:28.751Z",
-  //     "__v": 0
-  // };
-  // setNotes(notes.concat(note)) // return array with new value appended
-
 //-------------------------------------------------------------------------------------
 // Edit a Note - Create U
+
 const editNote = async (id, title, description, tag) => {
   // API call backend
   const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
@@ -92,6 +66,7 @@ const editNote = async (id, title, description, tag) => {
     },
     body: JSON.stringify({ title, description, tag })
   });
+  // eslint-disable-next-line
   const editjson = response.json();
 
   for (let index = 0; index < notes.length; index++) {
@@ -114,11 +89,16 @@ const deleteNote = async (id) => {// id is coming from NoteItem
     method: 'DELETE',
     headers: {
       'Conetent-type': 'application/json',
-      'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ0MDA2ODNlOTI3MjY2MWFjNjNkNWY0In0sImlhdCI6MTY4MTkxOTY0NX0.Q349Y6_7bgKPlc1AlLfPO7i3zdrHUb8FYAPpO4ipxeA'
+      'auth-token': localStorage.getItem('token')
     },
   });
-  const newNote = notes.filter((note) => { return note._id !== id })//return only those notes whose id is not equal to current id which has called the delete function
-  setNotes(newNote);
+  const json = response.json();
+  console.log(json);
+  // remove note from state
+  setNotes(notes.filter((note) => note._id !== id));
+  // const newNote = notes.filter((note) => { return note._id !== id })//return only those notes whose id is not equal to current id which has called the delete function
+  // setNotes(newNote);
+
 }
 
 return (
