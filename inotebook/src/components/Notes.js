@@ -8,7 +8,7 @@ const Notes = () => {
     const{notes,getNote}=context;
     useEffect(()=>{
       getNote()
-    },[])
+    },[])//display the notes from getNotes
   return (
     
 <>
@@ -16,8 +16,8 @@ const Notes = () => {
          <div className='container'>
     <div className='row my-3'>
         <h1>Your Notes</h1>
-         {notes.map((note)=>{
-             return  <NoteItem  key={note._id} note={note}/>
+         {notes.map((note)=>{//notes coming from context and passing one by one note to the noteitem
+             return  <NoteItem  key={note._id } note={note}/>
              //  give a property of key from mongodb id 
              
             })}

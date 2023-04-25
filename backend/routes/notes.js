@@ -20,18 +20,18 @@ router.get('/fetchallnotes',fetchuser,async (req,res)=>{
 //ROUTE 2: get notes GET /api/notes/addnotes .login required
 // to save new notes in db
 router.post('/addnotes',fetchuser,[
-    body('title',"Enter a valid title").isLength({min:3}),
-    body('description',"Enter a valid description").isLength({min:5})
+    // body('title',"Enter a valid title").isLength({min:3}),
+    // body('description',"Enter a valid description").isLength({min:5})
 ], async (req,res)=>{
     try {
         // get notes from request body
         const {title,description,tag}=req.body;
 
         // if error exist send bad request 400 status
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
+        // const errors = validationResult(req);
+        // if (!errors.isEmpty()) {
+        //     return res.status(400).json({ errors: errors.array() });
+        // }
         //add title,desc,tag in new Notes object
         const note=new Notes({
             title,description,tag,user:req.user.id
