@@ -22,7 +22,7 @@ const Notes = () => {
     
 <>
          <AddNote/>
-         <div className='container'>
+         <div className='container d-flex justify-content-center mb-3'>
     <div className='row my-3'>
         <h1>Your Notes</h1>
          {notes.map((note)=>{//notes coming from context and passing one by one note to the noteitem

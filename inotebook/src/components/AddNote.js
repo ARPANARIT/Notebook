@@ -21,9 +21,11 @@ const AddNote = () => {
         setNote({...note,[e.target.name]:e.target.value})
     };
   return (
-    <div className='container-sm'>
-    <div className='col-md-6'>
+    <div className='container-sm d-flex justify-content-center mb-3 border border-dark mt-5'>
+    <div className='col-md-6 '>
+      <div className='d-flex justify-content-center mb-3 mt-5'>
       <h1>Add Notes</h1>
+      </div>
     <form onSubmit={handleClick}>
   <div className="mb-3">
     <label htmlFor="title" className="form-label">Title</label>
@@ -38,7 +40,10 @@ const AddNote = () => {
     <label htmlFor="tag" className="form-label">Tag</label>
     <input type="text" className="form-control" id="tag" name="tag" value={note.tag}onChange={onChange} autoComplete='off'/>
   </div>
+  <div className='d-flex justify-content-center mb-3'>
+
   <button type="submit" className="btn btn-success" >Add Note</button>
+  </div>
 </form>
 </div>
 </div>

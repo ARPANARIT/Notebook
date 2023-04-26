@@ -8,7 +8,7 @@ const NoteItem = (props) => {//props coming from notes.js
   return (
     
 // to display the notes Read R
-    <div className='col-md-4'>
+    <div className='col-md-4 d-flex justify-content-center mb-3'>
 
     <div className="card my-3" >
   
